@@ -1,25 +1,27 @@
 [versions]
 agp = "8.3.0-alpha07"
 androidx-appcompat = "1.0.0"
-annotation = "1.2.0"
+annotation = "1.7.1"
 arsdk = "3.11.0"
-google-material = "1.0.0"
+google-material = "1.11.0"
+gradle = "8.2.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 appcompat = "1.6.1"
-junit-junit = "4.12"
+junit-junit = "4.13.2"
 legacy-support-v4 = "1.0.0"
-localbroadcastmanager = "1.0.0"
+localbroadcastmanager = "1.1.0"
 material = "1.9.0"
 annotation-jvm = "1.7.1"
 
 [libraries]
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
-androidx-appcompat-v100 = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-appcompat-v100 = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
 androidx-localbroadcastmanager = { module = "androidx.localbroadcastmanager:localbroadcastmanager", version.ref = "localbroadcastmanager" }
 arsdk = { module = "com.parrot:arsdk", version.ref = "arsdk" }
 androidx-legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacy-support-v4" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
