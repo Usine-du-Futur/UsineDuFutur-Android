@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+android {
+    namespace 'app.v43.usinedufutur'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "app.v43.usinedufutur"
+        minSdk 28
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
+    }
+
+    buildTypes {
+        debug {
+            proguardFile 'proguard-rules.pro'
+        }
+        release {
+            proguardFiles 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        renderScript true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    namespace 'app.v43.usinedufutur'
+}
+
+dependencies {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    implementation project(':aRBaseLib')
+    implementation libs.androidx.annotation
+    implementation libs.androidx.test.ext.junit
+    implementation libs.androidx.appcompat.v100
+    implementation libs.androidx.localbroadcastmanager
+    implementation libs.material.v100
+    implementation libs.androidx.legacy.support.v4
+    implementation libs.arsdk
+    testImplementation libs.junit.v412
+}

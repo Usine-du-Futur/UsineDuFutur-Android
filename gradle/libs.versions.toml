@@ -1,0 +1,34 @@
+[versions]
+agp = "8.3.0-alpha07"
+androidx-appcompat = "1.0.0"
+annotation = "1.2.0"
+arsdk = "3.11.0"
+google-material = "1.0.0"
+junit = "4.13.2"
+androidx-test-ext-junit = "1.1.5"
+espresso-core = "3.5.1"
+appcompat = "1.6.1"
+junit-junit = "4.12"
+legacy-support-v4 = "1.0.0"
+localbroadcastmanager = "1.0.0"
+material = "1.9.0"
+annotation-jvm = "1.7.1"
+
+[libraries]
+androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
+androidx-appcompat-v100 = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-localbroadcastmanager = { module = "androidx.localbroadcastmanager:localbroadcastmanager", version.ref = "localbroadcastmanager" }
+arsdk = { module = "com.parrot:arsdk", version.ref = "arsdk" }
+androidx-legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacy-support-v4" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+junit-v412 = { module = "junit:junit", version.ref = "junit-junit" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+material-v100 = { module = "com.google.android.material:material", version.ref = "google-material" }
+androidx-annotation-jvm = { group = "androidx.annotation", name = "annotation-jvm", version.ref = "annotation-jvm" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+
