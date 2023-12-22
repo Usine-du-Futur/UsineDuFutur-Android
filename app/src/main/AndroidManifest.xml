@@ -55,6 +55,8 @@
                 android:value="app.v43.usinedufutur.application.GUIWelcome" />
         </activity>
 
+        <activity android:name=".application.circuit.GUIOptions"
+                  android:screenOrientation="landscape" />
         <activity android:name=".application.circuit.GUICircuit" />
         <activity android:name=".application.circuit.GUICreateCircuit" />
         <activity android:name=".application.circuit.GUIModifyCircuit" />

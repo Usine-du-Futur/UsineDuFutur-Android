@@ -2,6 +2,7 @@ package app.v43.usinedufutur.application;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +21,7 @@ import java.util.List;
 import app.v43.usinedufutur.R;
 import app.v43.usinedufutur.application.circuit.Circuit;
 import app.v43.usinedufutur.application.circuit.GUICircuit;
+import app.v43.usinedufutur.application.circuit.GUIOptions;
 import app.v43.usinedufutur.application.network.BluetoothClient;
 import app.v43.usinedufutur.application.network.BluetoothCommunication;
 import app.v43.usinedufutur.application.network.BluetoothServer;
@@ -156,6 +158,8 @@ public class GUIWelcome extends Activity {
     private boolean isServer = true;
     private boolean serverHosting, clientConnected;
 
+    private MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Initializes the GUI from layout file
@@ -171,6 +175,11 @@ public class GUIWelcome extends Activity {
         btJoinBtn = (Button) findViewById(R.id.joinBluetoothBtn);
         Button setCircuitBtn = (Button) findViewById(R.id.setCircuitBtn);
         Button exitBtn = (Button) findViewById(R.id.exitBtn);
+        Button optionsBtn = (Button) findViewById(R.id.optionsBtn);
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.background_music);
+        mediaPlayer.start();
+
         // Defines action listener
         startRaceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,10 +217,17 @@ public class GUIWelcome extends Activity {
                 exitBtnAction();
             }
         });
+        optionsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                optionsBtnAction();
+            }
+        });
 
         btHostBtn.setBackgroundResource(android.R.drawable.btn_default);
         btJoinBtn.setBackgroundResource(android.R.drawable.btn_default);
         wifiConnectionBtn.setBackgroundResource(android.R.drawable.btn_default);
+        optionsBtn.setBackgroundResource(android.R.drawable.btn_default);
         exitBtn.setBackgroundResource(android.R.drawable.btn_default);
         setCircuitBtn.setBackgroundResource(android.R.drawable.btn_default);
         startRaceBtn.setBackgroundResource(android.R.drawable.btn_default);
@@ -226,7 +242,7 @@ public class GUIWelcome extends Activity {
     }
 
     /**
-     * Switch the current {@link GUIWelcome} {@link Activity} for a {@link GUIGame} {@link Activity}.
+     * Switch the current {@link GUIWelcome} {@link android.app.Activity} for a {@link GUIGame} {@link android.app.Activity}.
      * This switch requires to have a drone connected with the application.
      */
     private void startRaceBtnAction(){
@@ -315,7 +331,17 @@ public class GUIWelcome extends Activity {
         BluetoothCommunication.deleteInstance();
         currentDeviceService = null;
         devicesList = null;
+        mediaPlayer.stop();
         finish();
+    }
+
+    /**
+     * Sends to a {@link GUICircuit} activity in order to manage options.
+     */
+    private void optionsBtnAction() {
+        Intent i = new Intent(GUIWelcome.this, GUIOptions.class);
+        Log.d(GUI_WELCOME_TAG, "Launching a Settings Activity...");
+        startActivity(i);
     }
 
     /**
@@ -338,7 +364,7 @@ public class GUIWelcome extends Activity {
     /**
      * Enable the player to click on start a race.
      * Used only when two players are conneced via Bluetooth. In this case client can not click on
-     * {@link GUIWelcome#startRaceBtn} while the server has not sent its {@link app.v43.usinedufutur.application.circuit.Circuit#circuitInstance}.
+     * {@link GUIWelcome#startRaceBtn} while the server has not sent its {@link fr.enseeiht.superjumpingsumokart.application.circuit.Circuit#circuitInstance}.
      */
     private void enableStartARaceButton() {
         startRaceBtn.setEnabled(true);
