@@ -3,6 +3,7 @@ package app.v43.usinedufutur.application.circuit;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -76,9 +77,49 @@ public class GUIOptions extends Activity {
 
         LayoutInflater inflater = getLayoutInflater();
 
-        /**
-         * Button to launch the activity allowing the user to create a new circuit.
-         */
+        String[] music_arr = {"Coconut mall","Gta 4","Mario Kart Double Dash","Mario Kart 8","Mario Kart Wii","Mario Kart Retro"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, music_arr);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        musiqueSpinner.setAdapter(adapter);
+
+        // Set a listener for item selections
+        musiqueSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Display a Toast message with the selected music option
+                Toast.makeText(getApplicationContext(), "Selected: " + music_arr[position], Toast.LENGTH_SHORT).show();
+
+                if (position == 0) {
+                    MusicPlayer.getInstance().playMusic(getApplicationContext(), R.raw.coconut_mall);
+                } else if (position == 1) {
+                    MusicPlayer.getInstance().playMusic(getApplicationContext(), R.raw.gta_4);
+                } else if (position == 2) {
+                    MusicPlayer.getInstance().playMusic(getApplicationContext(), R.raw.mari_kart_double_dash);
+                }
+                else if (position == 3) {
+                    MusicPlayer.getInstance().playMusic(getApplicationContext(), R.raw.mario_kart_8);
+                }
+                else if (position == 4) {
+                    MusicPlayer.getInstance().playMusic(getApplicationContext(), R.raw.mario_kart_wii);
+                }
+                else if (position == 5) {
+                    MusicPlayer.getInstance().playMusic(getApplicationContext(), R.raw.retro_mario_kart);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Do nothing here
+            }
+        });
+
+
+
         backBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -87,6 +128,50 @@ public class GUIOptions extends Activity {
             }
         });
 
+
+
+        // Set a listener for seekbar changes
+        musiqueSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // Change the volume based on seekbar progress
+                setVolume(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // Do nothing here
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // Do nothing here
+            }
+        });
     }
 
+    // Other methods and code for the OptionGUI class
+
+    private int getCurrentVolume() {
+        AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        if (audioManager != null) {
+            int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+            return (int) ((currentVolume / (float) maxVolume) * 100);
+        }
+        return 0;
+    }
+
+    private void setVolume(int progress) {
+        AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        if (audioManager != null) {
+            int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+            int targetVolume = (int) ((progress / 100f) * maxVolume);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, targetVolume, 0);
+        }
+    }
 }
+
+
+
+

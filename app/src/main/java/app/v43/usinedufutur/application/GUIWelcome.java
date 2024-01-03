@@ -22,6 +22,7 @@ import app.v43.usinedufutur.R;
 import app.v43.usinedufutur.application.circuit.Circuit;
 import app.v43.usinedufutur.application.circuit.GUICircuit;
 import app.v43.usinedufutur.application.circuit.GUIOptions;
+import app.v43.usinedufutur.application.circuit.MusicPlayer;
 import app.v43.usinedufutur.application.network.BluetoothClient;
 import app.v43.usinedufutur.application.network.BluetoothCommunication;
 import app.v43.usinedufutur.application.network.BluetoothServer;
@@ -158,7 +159,7 @@ public class GUIWelcome extends Activity {
     private boolean isServer = true;
     private boolean serverHosting, clientConnected;
 
-    private MediaPlayer mediaPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,8 +178,7 @@ public class GUIWelcome extends Activity {
         Button exitBtn = (Button) findViewById(R.id.exitBtn);
         Button optionsBtn = (Button) findViewById(R.id.optionsBtn);
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.background_music);
-        mediaPlayer.start();
+        MusicPlayer.getInstance().playMusic(this, R.raw.mario_kart_8);
 
         // Defines action listener
         startRaceBtn.setOnClickListener(new View.OnClickListener() {
@@ -331,7 +331,7 @@ public class GUIWelcome extends Activity {
         BluetoothCommunication.deleteInstance();
         currentDeviceService = null;
         devicesList = null;
-        mediaPlayer.stop();
+        //mediaPlayer.stop();
         finish();
     }
 
