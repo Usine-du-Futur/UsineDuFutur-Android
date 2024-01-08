@@ -331,7 +331,8 @@ public class GUIWelcome extends Activity {
         BluetoothCommunication.deleteInstance();
         currentDeviceService = null;
         devicesList = null;
-        //mediaPlayer.stop();
+        MusicPlayer.getInstance().stopMusic();
+
         finish();
     }
 
