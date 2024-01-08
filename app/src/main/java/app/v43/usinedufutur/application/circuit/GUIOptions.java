@@ -24,6 +24,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 
 import app.v43.usinedufutur.R;
@@ -33,36 +35,21 @@ import app.v43.usinedufutur.arpack.DetectionTask;
 /**
  * The activity used for handling circuits. From this activity, the user can chose/modify/delete
  * a existing circuit or create a new one.
+ *
  * @author Vivian Guy.
  */
 
 public class GUIOptions extends Activity {
+    static final Song[] songs = {
+            new Song(R.raw.mario_kart_8, "Mario Kart 8"),
+            new Song(R.raw.coconut_mall, "Coconut Mall"),
+            new Song(R.raw.gta_4, "GTA 4"),
+            new Song(R.raw.mari_kart_double_dash, "Mario Kart Double Dash"),
+            new Song(R.raw.mario_kart_wii, "Mario Kart Wii"),
+            new Song(R.raw.retro_mario_kart, "Retro Mario Kart"),
+    };
 
-    /**
-     * The logging tag. Useful for debugging.
-     */
-    private static String GUI_CIRCUIT_TAG = "GUICircuit";
-
-    /**
-     * The {@link View} holding  the existing {@link Circuit} stored on the phone.
-     */
-    private ListView existingCircuitsListView;
-
-    /**
-     * List of existing circuit in the folder Circuits of the internal storage saved as a {@link String} array [name, lap].
-     */
-    private ArrayList<String[]> existingCircuits;
-
-    /**
-     * The {@link CircuitAdapter} for the {@link GUIOptions#existingCircuitsListView}.
-     */
-    private ArrayAdapter adapter;
-
-    /**
-     * The item on the existingCircuitsListView selected by the user and the one previously selected.
-     */
-    private int selectedItem = -1;
-    private int oldSelectedItem = -1;
+    static private boolean initialized = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +57,14 @@ public class GUIOptions extends Activity {
         setContentView(R.layout.activity_gui_options);
 
         // Buttons in the GUI.
-        Spinner musiqueSpinner = (Spinner) findViewById(R.id.musiqueSpinner);
-        SeekBar musiqueSeekBar = (SeekBar) findViewById(R.id.musiqueSeekBar);
-        SeekBar effetSeekBar = (SeekBar) findViewById(R.id.effetSeekBar);
-        Button backBtn = (Button) findViewById(R.id.backBtn);
+        Spinner musiqueSpinner = findViewById(R.id.musiqueSpinner);
+        SeekBar musiqueSeekBar = findViewById(R.id.musiqueSeekBar);
+        SeekBar effetSeekBar = findViewById(R.id.effetSeekBar);
+        Button backBtn = findViewById(R.id.backBtn);
 
         LayoutInflater inflater = getLayoutInflater();
 
-        String[] music_arr = {"Coconut mall","Gta 4","Mario Kart Double Dash","Mario Kart 8","Mario Kart Wii","Mario Kart Retro"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, music_arr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.stream(songs).map(song -> song.name).toArray(String[]::new));
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -87,29 +73,16 @@ public class GUIOptions extends Activity {
         musiqueSpinner.setAdapter(adapter);
 
         // Set a listener for item selections
+        musiqueSpinner.setSelection(0,false);
         musiqueSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (!initialized) return;
+
                 // Display a Toast message with the selected music option
-                Toast.makeText(getApplicationContext(), "Selected: " + music_arr[position], Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Selected: " + songs[position].name, Toast.LENGTH_SHORT).show();
 
-                if (position == 0) {
-                    MusicPlayer.getInstance().playMusic(getApplicationContext(), R.raw.coconut_mall);
-                } else if (position == 1) {
-                    MusicPlayer.getInstance().playMusic(getApplicationContext(), R.raw.gta_4);
-                } else if (position == 2) {
-                    MusicPlayer.getInstance().playMusic(getApplicationContext(), R.raw.mari_kart_double_dash);
-                }
-                else if (position == 3) {
-                    MusicPlayer.getInstance().playMusic(getApplicationContext(), R.raw.mario_kart_8);
-                }
-                else if (position == 4) {
-                    MusicPlayer.getInstance().playMusic(getApplicationContext(), R.raw.mario_kart_wii);
-                }
-                else if (position == 5) {
-                    MusicPlayer.getInstance().playMusic(getApplicationContext(), R.raw.retro_mario_kart);
-                }
-
+                MusicPlayer.getInstance().playMusic(getApplicationContext(), songs[position].id);
             }
 
             @Override
@@ -118,16 +91,7 @@ public class GUIOptions extends Activity {
             }
         });
 
-
-
-        backBtn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                finish();
-                return true;
-            }
-        });
-
+        backBtn.setOnClickListener((view) -> GUIOptions.this.finish());
 
 
         // Set a listener for seekbar changes
@@ -148,6 +112,8 @@ public class GUIOptions extends Activity {
                 // Do nothing here
             }
         });
+
+        initialized = true;
     }
 
     // Other methods and code for the OptionGUI class
