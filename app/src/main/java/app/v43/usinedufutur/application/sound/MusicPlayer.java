@@ -21,6 +21,7 @@ public class MusicPlayer {
     public void playMusic(Context context, int resourceId) {
         stopMusic();
         mediaPlayer = MediaPlayer.create(context, resourceId);
+        mediaPlayer.setLooping(true);
         mediaPlayer.start();
     }
 
