@@ -34,7 +34,7 @@ public class NullItem extends Item {
 
     @Override
     public void applyEffect(DroneController droneController) {
-
+        super.applyEffect(droneController);
     }
 
     @Override

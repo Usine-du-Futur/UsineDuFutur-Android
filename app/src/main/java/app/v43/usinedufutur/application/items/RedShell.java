@@ -5,6 +5,7 @@ import android.widget.ImageButton;
 
 import app.v43.usinedufutur.R;
 import app.v43.usinedufutur.application.DroneController;
+import app.v43.usinedufutur.application.sound.PlayerPool;
 import app.v43.usinedufutur.arpack.DetectionTask;
 import app.v43.usinedufutur.arpack.GUIGame;
 
@@ -45,11 +46,18 @@ public class RedShell extends Item {
 
     @Override
     public void applyEffect(DroneController droneController) {
+        super.applyEffect(droneController);
+
         Log.d(ITEM_TAG, "You've been hit by a red shell!");
         if (GUI_GAME != null) {
             GUI_GAME.GUI_GAME_HANDLER.sendEmptyMessage(GUIGame.ANIMATE_RED_SHELL);
         }
         droneController.spinningJump();
+    }
+
+    @Override
+    public void playSound() {
+        PlayerPool.getInstance().play(R.raw.sfx_red_shell);
     }
 
     @Override

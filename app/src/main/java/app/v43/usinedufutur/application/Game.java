@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import app.v43.usinedufutur.R;
 import app.v43.usinedufutur.application.circuit.Circuit;
 import app.v43.usinedufutur.application.items.Banana;
 import app.v43.usinedufutur.application.items.Blooper;
@@ -12,6 +13,7 @@ import app.v43.usinedufutur.application.items.Item;
 import app.v43.usinedufutur.application.items.RedShell;
 import app.v43.usinedufutur.application.network.BluetoothCommunication;
 import app.v43.usinedufutur.application.network.BluetoothCommunicationListener;
+import app.v43.usinedufutur.application.sound.PlayerPool;
 import app.v43.usinedufutur.arpack.DetectionTask;
 import app.v43.usinedufutur.arpack.GUIGame;
 import app.v43.usinedufutur.arpack.GUIGameListener;
@@ -203,10 +205,21 @@ public class Game implements BluetoothCommunicationListener, GUIGameListener {
     @Override
     public void onPlayerDetectsArrivalLine() {
         if (drone.getCurrentCheckpoint() >= Circuit.getInstance().getCheckpointToCheck()) {
-            drone.setCurrentLap(drone.getCurrentLap() + 1 < Circuit.getInstance().getLaps() ? drone.getCurrentLap() + 1 : Circuit.getInstance().getLaps());
+            int currentLap = drone.getCurrentLap();
+            int maxLaps = Circuit.getInstance().getLaps();
+            int newLap = Math.min(currentLap + 1, maxLaps);
+            drone.setCurrentLap(newLap);
             drone.setCurrentCheckpoint(0);
             for (GameListener gl : GAME_LISTENERS) {
                 gl.onPlayerFinishedLap();
+            }
+
+            if (newLap == maxLaps) {
+                PlayerPool.getInstance().play(guiGame, R.raw.sfx_finish);
+            } else if (newLap == maxLaps - 1) {
+                PlayerPool.getInstance().play(guiGame, R.raw.sfx_lap_final);
+            } else {
+                PlayerPool.getInstance().play(guiGame, R.raw.sfx_lap);
             }
         }
         if (drone.getCurrentLap() == Circuit.getInstance().getLaps()) {

@@ -5,6 +5,7 @@ import android.widget.ImageButton;
 
 import app.v43.usinedufutur.R;
 import app.v43.usinedufutur.application.DroneController;
+import app.v43.usinedufutur.application.sound.PlayerPool;
 import app.v43.usinedufutur.arpack.DetectionTask;
 import app.v43.usinedufutur.arpack.GUIGame;
 
@@ -46,6 +47,8 @@ public class MagicBox extends Item {
 
     @Override
     public void applyEffect(DroneController droneController) {
+        super.applyEffect(droneController);
+
         GUI_GAME.GUI_GAME_HANDLER.sendEmptyMessage(GUIGame.ANIMATE_MAGIC_BOX);
         int rand = 1+ (int) Math.floor(Math.random() * 5);
         Item item;
@@ -70,6 +73,11 @@ public class MagicBox extends Item {
         }
         droneController.getDrone().setCurrentItem(item);
         Log.d(ITEM_TAG, "A, "+ item.getName()+" has been assigned to the droneController");
+    }
+
+    @Override
+    public void playSound() {
+        PlayerPool.getInstance().play(GUI_GAME.getApplicationContext(), R.raw.sfx_item_box);
     }
 
     @Override

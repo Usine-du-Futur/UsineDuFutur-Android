@@ -5,6 +5,7 @@ import android.widget.ImageButton;
 
 import app.v43.usinedufutur.R;
 import app.v43.usinedufutur.application.DroneController;
+import app.v43.usinedufutur.application.sound.PlayerPool;
 import app.v43.usinedufutur.arpack.DetectionTask;
 
 /**
@@ -39,8 +40,8 @@ public class Mushroom extends Item {
     }
 
     @Override
-    public void applyEffect(DroneController droneController) {
-        // Nothing to do
+    public void playSound() {
+        PlayerPool.getInstance().play(R.raw.sfx_blooper);
     }
 
     @Override

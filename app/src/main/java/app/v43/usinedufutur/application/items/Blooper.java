@@ -5,6 +5,7 @@ import android.widget.ImageButton;
 
 import app.v43.usinedufutur.R;
 import app.v43.usinedufutur.application.DroneController;
+import app.v43.usinedufutur.application.sound.PlayerPool;
 import app.v43.usinedufutur.arpack.DetectionTask;
 import app.v43.usinedufutur.arpack.GUIGame;
 
@@ -46,10 +47,17 @@ public class Blooper extends Item {
 
     @Override
     public void applyEffect(DroneController droneController) {
+        super.applyEffect(droneController);
+
         Log.d(ITEM_TAG, "Blooper effect applied.");
         if (GUI_GAME != null) {
             GUI_GAME.GUI_GAME_HANDLER.sendEmptyMessage(GUIGame.ANIMATE_BLOOPER);
         }
+    }
+
+    @Override
+    public void playSound() {
+        PlayerPool.getInstance().play(GUI_GAME, R.raw.sfx_blooper);
     }
 
     @Override

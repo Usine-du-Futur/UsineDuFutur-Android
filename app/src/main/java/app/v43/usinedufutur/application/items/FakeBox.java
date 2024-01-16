@@ -6,6 +6,7 @@ import android.widget.ImageButton;
 import app.v43.usinedufutur.R;
 import app.v43.usinedufutur.application.DroneController;
 import app.v43.usinedufutur.application.circuit.Circuit;
+import app.v43.usinedufutur.application.sound.PlayerPool;
 import app.v43.usinedufutur.arpack.DetectionTask;
 
 /**
@@ -45,6 +46,8 @@ public class FakeBox extends Item {
 
     @Override
     public void applyEffect(DroneController droneController) {
+        super.applyEffect(droneController);
+
         Log.d(ITEM_TAG, "A TNT box has been touched");
         droneController.stopMotion();
         droneController.highJump();

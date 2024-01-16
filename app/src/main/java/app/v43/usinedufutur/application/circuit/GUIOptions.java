@@ -1,36 +1,22 @@
 package app.v43.usinedufutur.application.circuit;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 
 import app.v43.usinedufutur.R;
-import app.v43.usinedufutur.application.GUIWelcome;
-import app.v43.usinedufutur.arpack.DetectionTask;
+import app.v43.usinedufutur.application.sound.MusicPlayer;
 
 /**
  * The activity used for handling circuits. From this activity, the user can chose/modify/delete

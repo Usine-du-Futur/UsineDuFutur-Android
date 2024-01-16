@@ -39,7 +39,14 @@ public abstract class Item {
     /**
      * Method used to apply the effect of an {@link Item} on a drone via its controller.
      */
-    public abstract void applyEffect(DroneController droneController);
+    public void applyEffect(DroneController droneController) {
+        playSound();
+    }
+
+    /**
+     * Play the sound of the item.
+     */
+    public void playSound() {}
 
     /**
      * Put the object image on a {@link ImageButton}.

@@ -1,4 +1,4 @@
-package app.v43.usinedufutur.application.circuit;
+package app.v43.usinedufutur.application.sound;
 
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -7,7 +7,7 @@ public class MusicPlayer {
     private static MusicPlayer instance;
     private MediaPlayer mediaPlayer;
 
-    private MusicPlayer() {
+    protected MusicPlayer() {
         // Private constructor to enforce singleton pattern
     }
 

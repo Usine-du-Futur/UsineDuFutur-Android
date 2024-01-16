@@ -2,7 +2,6 @@ package app.v43.usinedufutur.application;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,10 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.v43.usinedufutur.R;
-import app.v43.usinedufutur.application.circuit.Circuit;
 import app.v43.usinedufutur.application.circuit.GUICircuit;
 import app.v43.usinedufutur.application.circuit.GUIOptions;
-import app.v43.usinedufutur.application.circuit.MusicPlayer;
+import app.v43.usinedufutur.application.sound.MusicPlayer;
 import app.v43.usinedufutur.application.network.BluetoothClient;
 import app.v43.usinedufutur.application.network.BluetoothCommunication;
 import app.v43.usinedufutur.application.network.BluetoothServer;
