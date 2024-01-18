@@ -19,10 +19,17 @@ public class MusicPlayer {
     }
 
     public void playMusic(Context context, int resourceId) {
+        MediaPlayer mp = play(context, resourceId);
+
+        mp.setLooping(true);
+    }
+
+    public MediaPlayer play(Context context, int resourceId) {
         stopMusic();
         mediaPlayer = MediaPlayer.create(context, resourceId);
-        mediaPlayer.setLooping(true);
         mediaPlayer.start();
+
+        return mediaPlayer;
     }
 
     public void stopMusic() {

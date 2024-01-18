@@ -41,7 +41,7 @@ public class PlayerPool {
             ctx = lastContext;
         }
         MusicPlayer player = players[index];
-        player.playMusic(ctx, resourceId);
+        player.play(ctx, resourceId);
 
         int result = index;
         index = (index + 1) % count;
