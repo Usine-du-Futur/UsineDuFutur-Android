@@ -18,12 +18,23 @@ public class MusicPlayer {
         return instance;
     }
 
+    /**
+     * Same as {@link #play(Context, int)}, but loops the audio
+     * @param context The {@link Context} to be used
+     * @param resourceId The music identifier
+     */
     public void playMusic(Context context, int resourceId) {
         MediaPlayer mp = play(context, resourceId);
 
         mp.setLooping(true);
     }
 
+    /**
+     * Plays an audio
+     * @param context The {@link Context} to be used
+     * @param resourceId The audio identifier
+     * @return The {@link MediaPlayer} being used
+     */
     public MediaPlayer play(Context context, int resourceId) {
         stopMusic();
         mediaPlayer = MediaPlayer.create(context, resourceId);
@@ -32,6 +43,9 @@ public class MusicPlayer {
         return mediaPlayer;
     }
 
+    /**
+     * Stops playing, in case it is
+     */
     public void stopMusic() {
         if (mediaPlayer != null) {
             mediaPlayer.release();

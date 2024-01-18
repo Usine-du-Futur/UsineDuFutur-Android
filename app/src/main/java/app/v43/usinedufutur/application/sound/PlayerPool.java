@@ -2,6 +2,11 @@ package app.v43.usinedufutur.application.sound;
 
 import android.content.Context;
 
+/**
+ * A class that handles multiple MusicPlayers.
+ * Useful for when multiple sounds can be played at once.
+ * By default, creates 4 players, but this value can be modified.
+ */
 public class PlayerPool {
     private static PlayerPool instance;
 
@@ -30,10 +35,22 @@ public class PlayerPool {
         }
     }
 
+    /**
+     * Players a song with a given {@param resourceId}.
+     * Same as {@link #play(Context, int)}, but uses the last saved {@link Context}
+     * @param resourceId The song identifier
+     * @return A code for stopping this specific sound, used in {@link #stop}
+     */
     public int play(int resourceId) {
         return play(null, resourceId);
     }
 
+    /**
+     * Same as {@link #play(int)}, but allows for specifying a {@link Context}, which is then saved.
+     * @param ctx The {@link Context} to be used
+     * @param resourceId The song identifier
+     * @return A code for stopping this specific sound, used in {@link #stop}
+     */
     public int play(Context ctx, int resourceId) {
         if (ctx != null) {
             lastContext = ctx;
@@ -49,10 +66,17 @@ public class PlayerPool {
         return result;
     }
 
+    /**
+     * Stops the playing of a sound
+     * @param index The code of the player to be stopped (obtained in {@link #play(int)})
+     */
     public void stop(int index) {
         players[index].stopMusic();
     }
 
+    /**
+     * Stops the execution of all sounds
+     */
     public void stopAll() {
         for (MusicPlayer player : players) {
             player.stopMusic();

@@ -214,6 +214,7 @@ public class Game implements BluetoothCommunicationListener, GUIGameListener {
                 gl.onPlayerFinishedLap();
             }
 
+            // Depending on the lap we are on, play the corresponding sound
             if (newLap == maxLaps) {
                 PlayerPool.getInstance().play(guiGame, R.raw.sfx_finish);
             } else if (newLap == maxLaps - 1) {
