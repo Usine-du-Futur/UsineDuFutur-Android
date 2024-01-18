@@ -19,13 +19,14 @@ import app.v43.usinedufutur.R;
 import app.v43.usinedufutur.application.sound.MusicPlayer;
 
 /**
- * The activity used for handling circuits. From this activity, the user can chose/modify/delete
- * a existing circuit or create a new one.
+ * The activity used for handling options. From this activity, the user can chose the music among miscellaneous musics
+ * Also, he modify the volume of the music.
  *
- * @author Vivian Guy.
+ * @author Mehdi Fellahi.
  */
 
 public class GUIOptions extends Activity {
+
     static final Song[] songs = {
             new Song(R.raw.mario_kart_8, "Mario Kart 8"),
             new Song(R.raw.coconut_mall, "Coconut Mall"),
@@ -37,6 +38,14 @@ public class GUIOptions extends Activity {
 
     static private boolean initialized = false;
 
+
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +56,6 @@ public class GUIOptions extends Activity {
         SeekBar musiqueSeekBar = findViewById(R.id.musiqueSeekBar);
         SeekBar effetSeekBar = findViewById(R.id.effetSeekBar);
         Button backBtn = findViewById(R.id.backBtn);
-
-        LayoutInflater inflater = getLayoutInflater();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.stream(songs).map(song -> song.name).toArray(String[]::new));
 
@@ -61,6 +68,15 @@ public class GUIOptions extends Activity {
         // Set a listener for item selections
         musiqueSpinner.setSelection(0,false);
         musiqueSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             *
+             * @param parentView The AdapterView where the selection happened
+             * @param selectedItemView The view within the AdapterView that was clicked
+             * @param position The position of the view in the adapter
+             * @param id The row id of the item that is selected
+             *
+             * Get the instance of the MusicPLayer clas which is responsible of playing music, according the the song selected
+             */
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 if (!initialized) return;
@@ -82,6 +98,18 @@ public class GUIOptions extends Activity {
 
         // Set a listener for seekbar changes
         musiqueSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            /**
+             *
+             * @param seekBar The SeekBar whose progress has changed
+             * @param progress The current progress level. This will be in the range min..max where min
+             *                 and max were set by {@link ProgressBar#setMin(int)} and
+             *                 {@link ProgressBar#setMax(int)}, respectively. (The default values for
+             *                 min is 0 and max is 100.)
+             * @param fromUser True if the progress change was initiated by the user.
+             *
+             * Set the volume selected
+             */
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // Change the volume based on seekbar progress
@@ -90,12 +118,12 @@ public class GUIOptions extends Activity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                // Do nothing here
+
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // Do nothing here
+
             }
         });
 
@@ -104,6 +132,10 @@ public class GUIOptions extends Activity {
 
     // Other methods and code for the OptionGUI class
 
+    /**
+     *
+     * @return the current volume of the phone.
+     */
     private int getCurrentVolume() {
         AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         if (audioManager != null) {
@@ -114,6 +146,10 @@ public class GUIOptions extends Activity {
         return 0;
     }
 
+    /**
+     * Set the volume selected tp the phone volume manager.
+     * @param progress current volume of the app
+     */
     private void setVolume(int progress) {
         AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         if (audioManager != null) {
