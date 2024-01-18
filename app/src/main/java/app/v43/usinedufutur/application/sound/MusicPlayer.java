@@ -28,9 +28,9 @@ public class MusicPlayer {
     }
 
     /**
-     * Plays the music selected
-     * @param context
-     * @param resourceId music to be played
+     * Same as {@link #play(Context, int)}, but loops the audio
+     * @param context The {@link Context} to be used
+     * @param resourceId The music identifier
      */
     public void playMusic(Context context, int resourceId) {
         MediaPlayer mp = play(context, resourceId);
@@ -38,10 +38,10 @@ public class MusicPlayer {
     }
 
     /**
-     *
-     * @param context
-     * @param resourceId music to be played
-     * @return the mediaplyer instance of th right music selected
+     * Plays an audio
+     * @param context The {@link Context} to be used
+     * @param resourceId The audio identifier
+     * @return The {@link MediaPlayer} being used
      */
     public MediaPlayer play(Context context, int resourceId) {
         stopMusic();
@@ -52,7 +52,7 @@ public class MusicPlayer {
     }
 
     /**
-     * stop the music when the user quit the app.
+     * Stops playing, in case it is
      */
     public void stopMusic() {
         if (mediaPlayer != null) {
